@@ -57,8 +57,8 @@ export default class UpdateProfileService {
 
     if (password && old_password) {
       const checkOldPassword = await this.hashProvider.compareHash(
-        userFound.password,
-        old_password
+        old_password,
+        userFound.password
       );
 
       if (!checkOldPassword) {

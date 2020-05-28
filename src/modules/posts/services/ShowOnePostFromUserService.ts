@@ -29,7 +29,7 @@ export default class ShowOnePostFromUserService {
       throw new AppError('User not found');
     }
 
-    const post = await this.postsRepository.findOneById(post_id);
+    const post = await this.postsRepository.findById(post_id);
 
     if (!post) {
       throw new AppError('Post not found.');

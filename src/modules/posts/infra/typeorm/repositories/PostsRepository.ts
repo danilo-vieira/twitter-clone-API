@@ -12,7 +12,7 @@ export default class PostsRepository implements IPostsRepository {
     this.ormRepository = getRepository(Post);
   }
 
-  public async findOneById(id: string): Promise<Post | undefined> {
+  public async findById(id: string): Promise<Post | undefined> {
     const postFound = await this.ormRepository.findOne(id);
 
     return postFound;

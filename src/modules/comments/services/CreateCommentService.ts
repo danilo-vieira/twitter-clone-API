@@ -2,17 +2,24 @@ import { injectable, inject } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
 
+import IPostsRepository from '@modules/posts/repositories/IPostsRepository';
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
-import IPostsRepository from '../repositories/IPostsRepository';
+import ICommentsRepository from '../repositories/ICommentsRepository';
+
+import Comment from '../infra/typeorm/entities/Comment';
 
 interface IRequest {
-  user_id: string;
   post_id: string;
+  user_id: string;
+  content: string;
 }
 
 @injectable()
-export default class DeletePostService {
+export default class CreateCommentService {
   constructor(
+    @inject('CommentsRepository')
+    private commentsRepository: ICommentsRepository,
+
     @inject('PostsRepository')
     private postsRepository: IPostsRepository,
 
@@ -20,7 +27,11 @@ export default class DeletePostService {
     private usersRepository: IUsersRepository
   ) {}
 
-  public async execute({ user_id, post_id }: IRequest): Promise<void> {
+  public async execute({
+    user_id,
+    post_id,
+    content,
+  }: IRequest): Promise<Comment> {
     const userFound = await this.usersRepository.findById(user_id);
 
     if (!userFound) {
@@ -33,10 +44,12 @@ export default class DeletePostService {
       throw new AppError('Post not found');
     }
 
-    if (postFound.user_id !== userFound.id) {
-      throw new AppError('The post does not belongs to this user.');
-    }
+    const createdComment = await this.commentsRepository.create({
+      user_id,
+      post_id,
+      content,
+    });
 
-    await this.postsRepository.delete(postFound);
+    return createdComment;
   }
 }

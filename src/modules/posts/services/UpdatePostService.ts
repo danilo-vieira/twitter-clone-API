@@ -30,7 +30,7 @@ export default class UpdatePostService {
       throw new AppError('User not found.');
     }
 
-    const postFound = await this.postsRepository.findOneById(post_id);
+    const postFound = await this.postsRepository.findById(post_id);
 
     if (!postFound) {
       throw new AppError('Post not found.');

@@ -9,7 +9,7 @@ let fakeUsersRepository: FakeUsersRepository;
 let fakePostsRepository: FakePostsRepository;
 let deletePost: DeletePostService;
 
-describe('ShowOnePostFromUser', () => {
+describe('DeletePost', () => {
   beforeEach(() => {
     fakePostsRepository = new FakePostsRepository();
     fakeUsersRepository = new FakeUsersRepository();
@@ -37,7 +37,7 @@ describe('ShowOnePostFromUser', () => {
       post_id: post.id,
     });
 
-    const postFound = await fakePostsRepository.findOneById(post.id);
+    const postFound = await fakePostsRepository.findById(post.id);
 
     expect(postFound).toBeUndefined();
   });

@@ -7,7 +7,7 @@ import IPostsRepository from '../IPostsRepository';
 export default class FakePostsRepository implements IPostsRepository {
   private posts: Post[] = [];
 
-  public async findOneById(id: string): Promise<Post | undefined> {
+  public async findById(id: string): Promise<Post | undefined> {
     const postFound = this.posts.find(post => post.id === id);
 
     return postFound;

@@ -7,7 +7,7 @@ let fakeUsersRepository: FakeUsersRepository;
 let fakePostsRepository: FakePostsRepository;
 let showAllPosts: ShowAllPostsService;
 
-describe('ShowOnePostFromUser', () => {
+describe('ShowAllPosts', () => {
   beforeEach(() => {
     fakePostsRepository = new FakePostsRepository();
     fakeUsersRepository = new FakeUsersRepository();
@@ -15,7 +15,7 @@ describe('ShowOnePostFromUser', () => {
     showAllPosts = new ShowAllPostsService(fakePostsRepository);
   });
 
-  it('should be able to list one post from user', async () => {
+  it('should be able to list all post from user', async () => {
     const user = await fakeUsersRepository.create({
       name: 'John Doe',
       email: 'johndoe@example.com',

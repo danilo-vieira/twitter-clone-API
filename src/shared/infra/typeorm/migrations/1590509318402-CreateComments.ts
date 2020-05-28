@@ -1,10 +1,10 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export default class CreatePosts1590509318401 implements MigrationInterface {
+export default class CreateComments1590509318402 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'posts',
+        name: 'comments',
         columns: [
           {
             name: 'id',
@@ -14,13 +14,14 @@ export default class CreatePosts1590509318401 implements MigrationInterface {
             default: 'uuid_generate_v4()',
           },
           {
-            name: 'user_id',
+            name: 'post_id',
             type: 'uuid',
+            isNullable: false,
           },
           {
-            name: 'comment_id',
+            name: 'user_id',
             type: 'uuid',
-            isNullable: true,
+            isNullable: false,
           },
           {
             name: 'content',
@@ -40,7 +41,15 @@ export default class CreatePosts1590509318401 implements MigrationInterface {
         ],
         foreignKeys: [
           {
-            name: 'UserPosts',
+            name: 'PostComments',
+            columnNames: ['post_id'],
+            referencedTableName: 'posts',
+            referencedColumnNames: ['id'],
+            onUpdate: 'CASCADE',
+            onDelete: 'CASCADE',
+          },
+          {
+            name: 'UserComments',
             columnNames: ['user_id'],
             referencedTableName: 'users',
             referencedColumnNames: ['id'],
@@ -53,6 +62,6 @@ export default class CreatePosts1590509318401 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('posts');
+    await queryRunner.dropTable('comments');
   }
 }

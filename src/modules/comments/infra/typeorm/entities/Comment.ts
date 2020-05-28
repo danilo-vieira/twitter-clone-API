@@ -2,34 +2,32 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  ManyToOne,
   CreateDateColumn,
   UpdateDateColumn,
+  ManyToOne,
   JoinColumn,
-  OneToMany,
 } from 'typeorm';
-
+import Post from '@modules/posts/infra/typeorm/entities/Post';
 import User from '@modules/users/infra/typeorm/entities/User';
-import Comment from '@modules/comments/infra/typeorm/entities/Comment';
 
-@Entity('posts')
-export default class Post {
+@Entity('comments')
+export default class Comment {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
-  user_id: string;
+  @Column('uuid')
+  post_id: string;
 
-  @ManyToOne(() => User, { eager: true })
-  @JoinColumn({ name: 'user_id' })
-  user: User;
+  @ManyToOne(() => Post)
+  @JoinColumn({ name: 'post_id' })
+  post: Post;
 
   @Column('uuid')
-  comment_id: string;
+  user_id: string;
 
-  @OneToMany(() => Comment, comment => comment.post, { eager: true })
-  @JoinColumn({ name: 'comment_id' })
-  comment: Comment;
+  @ManyToOne(() => User)
+  @JoinColumn({ name: 'user_id' })
+  user: User;
 
   @Column()
   content: string;
