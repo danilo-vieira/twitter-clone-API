@@ -20,6 +20,27 @@ O projeto foi desenvolvido utilizando as seguintes tecnologias:
 * [Celebrate](https://github.com/arb/celebrate)
 * [Jest](https://jestjs.io/)
 
+### 📌 **Index**
+* [Instalando as ferramentas](#instalando-as-ferramentas)
+  * [Instalando NVM](#instalando-nvm)
+  * [Instalando Node.js](#instalando-nodejs)
+  * [Instalando Yarn](#instalando-yarn)
+* [Executando o projeto](#🚀-executando-o-projeto)
+  * [Faça o clone do projeto](#faça-o-clone-do-projeto)
+  * [Abrindo o projeto](#abrindo-o-projeto)
+  * [Instalando as dependências](#instalando-as-dependências)
+  * [Configurando o Banco de Dados](#configurando-o-banco-de-dados)
+  * [Executando as migrations](#executando-as-migrations)
+* [Inicializando o projeto](#🚀-inicializando-o-projeto)
+* [Referência completa da API](#💻-referência-da-API)
+  * [Erros de autenticação](#erros-de-autenticação)
+  * [Parâmetros de autenticação](#parâmetros-de-autenticação)
+  * [Rotas](#usuários)
+    * [Usuários](#usuários)
+    * [Posts](#posts)
+    * [Comentários](#comentários)
+
+
 ## 🚀 Como rodar o projeto
 
 ### ⚙ **Instalando as ferramentas**
@@ -27,16 +48,6 @@ O projeto foi desenvolvido utilizando as seguintes tecnologias:
 O primeiro passo para rodar o projeto é ter certeza que você tem todas as ferramentas disponíveis no seu computador. Sendo assim, tenha certeza de seguir todos os passos corretamente.
 
 ATENÇÃO: Os seguintes passos são para configurações em ambiente **Linux**. Se você possui outro SO, basta fazer algumas simples buscas na internet de como seguir os mesmos passos que irá funcionar (deixarei também algumas dicas por aqui, caso precise).
-
-### 📌 **Index**
-* [Installing Tools](#installing-tools)
-  * [Installing NVM](#installing-nvm)
-  * [Installing Node.js](#installing-nodejs)
-  * [Installing Yarn](#installing-yarn)
-* [Running the Project](#🚀-running-the-project)
-  * [Making a clone](#make-a-clone)
-  * [Opening the project](#opening-the-project)
-  * [Initializing the project](#initializing-the-project)
 
 #### Instalando NVM
 
@@ -172,9 +183,9 @@ ATENÇÃO: Os seguintes passos são para configurações em ambiente **Linux**. 
 
   A URL base a ser usada como exemplo será uma variável `base_url`. Considere que ela armazene o valor `http://localhost:3333`.
 
-### **Erros comums**
 
-- #### Erros de autenticação
+
+#### Erros de autenticação
 
 - Motivo
   - Foi informado um token inválido no cabeçalho da requisição.
@@ -202,7 +213,16 @@ ATENÇÃO: Os seguintes passos são para configurações em ambiente **Linux**. 
     ```
   - Status code: `401`
 
-### **Users**
+### **Parâmetros de autenticação**
+  - HEADER
+    - ```
+        key: authorization
+      ```
+    - ```
+        value: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSm9obiBEb2UiLCJpYXQiOjE1OTA2NjMyMTksImV4cCI6MTU5MDc0OTYxOSwic3ViIjoiOTBkMDAyZmItOTljMy00ODY4LTgzYjItOGFlMzkwZTM2ZTBiIn0.Hepb43TqjQe5ba8nnNJ-iBaaMBMSVi3rraAA0nATLT4
+      ```
+
+### **Usuários**
 
   **Rota**
   - POST - `base_url/users`
@@ -325,12 +345,7 @@ ATENÇÃO: Os seguintes passos são para configurações em ambiente **Linux**. 
         ```
 
   - HEADER
-    - ```
-        key: authorization
-      ```
-    - ```
-        value: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSm9obiBEb2UiLCJpYXQiOjE1OTA2NjMyMTksImV4cCI6MTU5MDc0OTYxOSwic3ViIjoiOTBkMDAyZmItOTljMy00ODY4LTgzYjItOGFlMzkwZTM2ZTBiIn0.Hepb43TqjQe5ba8nnNJ-iBaaMBMSVi3rraAA0nATLT4
-      ```
+    - [Parâmetros de autenticação](#parâmetros-de-autenticação)
 
 
   **Resposta**
@@ -362,20 +377,6 @@ ATENÇÃO: Os seguintes passos são para configurações em ambiente **Linux**. 
         }
       ```
     - Status code: `400`
-
-<br>
-
-  - Motivo
-    - Não foi informado um token no cabeçalho da requisição
-
-  - Reposta desse erro
-    - ```json
-        {
-          "status": "error",
-          "message": "Token was not provided."
-        }
-      ```
-    - Status code: `401`
 
 <br>
 
@@ -424,12 +425,7 @@ ATENÇÃO: Os seguintes passos são para configurações em ambiente **Linux**. 
 
   **Parâmetros**
   - HEADER
-    - ```
-        key: authorization
-      ```
-    - ```
-        value: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSm9obiBEb2UiLCJpYXQiOjE1OTA2NjMyMTksImV4cCI6MTU5MDc0OTYxOSwic3ViIjoiOTBkMDAyZmItOTljMy00ODY4LTgzYjItOGFlMzkwZTM2ZTBiIn0.Hepb43TqjQe5ba8nnNJ-iBaaMBMSVi3rraAA0nATLT4
-      ```
+    - [Parâmetros de autenticação](#parâmetros-de-autenticação)
 
   **Resposta**
 
@@ -449,13 +445,133 @@ ATENÇÃO: Os seguintes passos são para configurações em ambiente **Linux**. 
   Essa rota mostra as informações do cadastro de um usuário
 
   **Parâmetros**
+  - [Parâmetros de autenticação](#parâmetros-de-autenticação)
+
+  **Resposta**
+
+  Status code: `200`
+
+  **Possíveis erros**
+  - Motivo
+    - [Erros de autenticação](#erros-de-autenticação)
+
+<br>
+
+### **Posts**
+
+  **Rota**
+  - POST - `base_url/posts`
+
+  **Descrição**
+
+  Essa rota realiza a criação de um post.
+
+  **Parâmetros**
+  - BODY
+    - ```json
+          {
+            "content": "Hello World!"
+          }
+      ```
   - HEADER
-    - ```
-        key: authorization
+    - [Parâmetros de autenticação](#parâmetros-de-autenticação)
+
+  **Resposta**
+  ```json
+    {
+      "id": "756db6fc-2635-49fd-9888-965eebf807d2",
+      "user_id": "ee0c2b52-142e-4ee0-9369-41e4decc113e",
+      "content": "Hello World!",
+      "created_at": "2020-05-28T17:44:57.250Z",
+      "updated_at": "2020-05-28T17:44:57.250Z"
+    }
+  ```
+  Status code: `200`
+
+  **Possíveis erros**
+  - Motivo
+    - [Erros de autenticação](#erros-de-autenticação)
+  - Motivo
+    - Erros de validação do Celebrate caso o conteúdo do corpo não exista, possua menos que 1 caractere ou possua mais que 280 caracteres
+<br>
+
+  **Rota**
+  - PUT - `base_url/posts/:postId`
+
+  **Descrição**
+
+  Essa rota realiza a alteração no conteúdo de um post.
+
+  **Parâmetros**
+  - BODY
+    - ```json
+          {
+            "content": "Post Changed!"
+          }
       ```
+  - PARAMS
     - ```
-        value: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSm9obiBEb2UiLCJpYXQiOjE1OTA2NjMyMTksImV4cCI6MTU5MDc0OTYxOSwic3ViIjoiOTBkMDAyZmItOTljMy00ODY4LTgzYjItOGFlMzkwZTM2ZTBiIn0.Hepb43TqjQe5ba8nnNJ-iBaaMBMSVi3rraAA0nATLT4
+        756db6fc-2635-49fd-9888-965eebf807d2
       ```
+  - HEADER
+    - [Parâmetros de autenticação](#parâmetros-de-autenticação)
+
+  **Resposta**
+  ```json
+    {
+      "id": "756db6fc-2635-49fd-9888-965eebf807d2",
+      "user_id": "ee0c2b52-142e-4ee0-9369-41e4decc113e",
+      "comment_id": null,
+      "content": "Post Changed!",
+      "created_at": "2020-05-28T17:44:57.250Z",
+      "updated_at": "2020-05-28T17:53:10.561Z",
+      "user": {
+        "id": "ee0c2b52-142e-4ee0-9369-41e4decc113e",
+        "name": "John",
+        "email": "johndoe@example.com",
+        "created_at": "2020-05-28T16:51:20.606Z",
+        "updated_at": "2020-05-28T16:54:45.734Z"
+      },
+      "comment": []
+    }
+  ```
+  Status code: `200`
+
+  **Possíveis erros**
+  - Motivo
+    - [Erros de autenticação](#erros-de-autenticação)
+
+  - Motivo
+    - Erros de validação do Celebrate caso o conteúdo do corpo não exista, se o `content` possuir menos que 1 caractere, possuir mais que 280 caracteres ou se o ID informado não for do tipo UUIDv4.
+
+  - Motivo
+    - O post não foi encontrado
+
+  - Resposta desse erro:
+    - ```json
+        {
+          "status": "error",
+          "message": "Post not found"
+        }
+      ```
+    - Status code: `400`
+
+<br>
+
+  **Rota**
+  - DELETE - `base_url/posts/:postId`
+
+  **Descrição**
+
+  Essa rota realiza a remoção de um post do banco de dados.
+
+  **Parâmetros**
+  - PARAMS
+    - ```
+        756db6fc-2635-49fd-9888-965eebf807d2
+      ```
+  - HEADER
+    - [Parâmetros de autenticação](#parâmetros-de-autenticação)
 
   **Resposta**
 
@@ -465,7 +581,442 @@ ATENÇÃO: Os seguintes passos são para configurações em ambiente **Linux**. 
   - Motivo
     - [Erros de autenticação](#erros-de-autenticação)
 
+  - Motivo
+    - Erro de validação do Celebrate caso o ID informado não for do tipo UUIDv4.
 
+  - Motivo
+    - O post não foi encontrado
+
+  - Resposta desse erro:
+    - ```json
+        {
+          "status": "error",
+          "message": "Post not found"
+        }
+      ```
+    - Status code: `400`
+
+<br>
+
+  **Rota**
+  - GET - `base_url/posts`
+
+  **Descrição**
+
+  Essa rota realiza a listagem de todos os posts de todos os usuários ordenados por data do mais recente para o mais antigo.
+
+  **Parâmetros**
+
+  - Não possui
+
+  **Resposta**
+  ```json
+    [
+      {
+        "id": "756db6fc-2635-49fd-9888-965eebf807d2",
+        "user_id": "ee0c2b52-142e-4ee0-9369-41e4decc113e",
+        "comment_id": null,
+        "content": "Post Changed!",
+        "created_at": "2020-05-28T17:44:57.250Z",
+        "updated_at": "2020-05-28T17:53:10.561Z",
+        "user": {
+          "id": "ee0c2b52-142e-4ee0-9369-41e4decc113e",
+          "name": "John",
+          "email": "johndoe@example.com",
+          "created_at": "2020-05-28T16:51:20.606Z",
+          "updated_at": "2020-05-28T16:54:45.734Z"
+        },
+        "comment": []
+      }
+    ]
+  ```
+  Status code: `200`
+
+  **Possíveis erros**
+  - Não possui
+
+<br>
+
+  **Rota**
+  - GET - `base_url/posts/:userId`
+
+  **Descrição**
+
+  Essa rota realiza a listagem de todos os posts de um determinado usuário a partir do id dele.
+
+  **Parâmetros**
+  - PARAMS
+    - ```
+        ee0c2b52-142e-4ee0-9369-41e4decc113e
+      ```
+
+  **Resposta**
+  ```json
+    [
+      {
+        "id": "756db6fc-2635-49fd-9888-965eebf807d2",
+        "user_id": "ee0c2b52-142e-4ee0-9369-41e4decc113e",
+        "comment_id": null,
+        "content": "Post Changed!",
+        "created_at": "2020-05-28T17:44:57.250Z",
+        "updated_at": "2020-05-28T17:53:10.561Z",
+        "user": {
+          "id": "ee0c2b52-142e-4ee0-9369-41e4decc113e",
+          "name": "John",
+          "email": "johndoe@example.com",
+          "created_at": "2020-05-28T16:51:20.606Z",
+          "updated_at": "2020-05-28T16:54:45.734Z"
+        },
+        "comment": []
+      }
+    ]
+  ```
+  Status code: `200`
+
+  **Possíveis erros**
+  - Motivo
+    - [Erros de autenticação](#erros-de-autenticação)
+
+  - Motivo
+    - Erro de validação do Celebrate caso o ID informado não for do tipo UUIDv4.
+
+  - Motivo
+    - O usuário não foi encontrado
+
+  - Resposta desse erro:
+    - ```json
+        {
+          "status": "error",
+          "message": "User not found"
+        }
+      ```
+    - Status code: `400`
+
+<br>
+
+  **Rota**
+  - GET - `base_url/posts/:postId/:userId`
+
+  **Descrição**
+
+  Essa rota mostra um post de um determinado usuário a partir do id do post e do usuário.
+
+  **Parâmetros**
+  - PARAMS
+    1. ```
+        fc53f681-82b5-4089-b2c1-d12002b38ed3
+       ```
+    2. ```
+        ee0c2b52-142e-4ee0-9369-41e4decc113e
+       ```
+
+  **Resposta**
+  ```json
+    {
+      "id": "fc53f681-82b5-4089-b2c1-d12002b38ed3",
+      "user_id": "ee0c2b52-142e-4ee0-9369-41e4decc113e",
+      "comment_id": null,
+      "content": "Hello World",
+      "created_at": "2020-05-28T18:16:53.420Z",
+      "updated_at": "2020-05-28T18:16:53.420Z",
+      "user": {
+        "id": "ee0c2b52-142e-4ee0-9369-41e4decc113e",
+        "name": "John",
+        "email": "johndoe@example.com",
+        "created_at": "2020-05-28T16:51:20.606Z",
+        "updated_at": "2020-05-28T16:54:45.734Z"
+      },
+      "comment": []
+    }
+  ```
+  Status code: `200`
+
+  **Possíveis erros**
+  - Motivo
+    - [Erros de autenticação](#erros-de-autenticação)
+
+  - Motivo
+    - Erro de validação do Celebrate caso os IDs informados não forem do tipo UUIDv4.
+
+  - Motivo
+    - O usuário não foi encontrado
+
+  - Resposta desse erro:
+    - ```json
+        {
+          "status": "error",
+          "message": "User not found"
+        }
+      ```
+    - Status code: `400`
+
+  - Motivo
+    - O post não foi encontrado
+
+  - Resposta desse erro:
+    - ```json
+        {
+          "status": "error",
+          "message": "Post not found"
+        }
+      ```
+    - Status code: `400`
+
+<br>
+
+### **Comentários**
+
+  **Rota**
+  - POST - `base_url/comments/:postId`
+
+  **Descrição**
+
+  Essa rota realiza a criação de um comentário.
+
+  **Parâmetros**
+  - BODY
+    - ```json
+          {
+            "content": "This is a comment!"
+          }
+      ```
+  - PARAMS
+     -  ```
+        756db6fc-2635-49fd-9888-965eebf807d2
+        ```
+  - HEADER
+    - [Parâmetros de autenticação](#parâmetros-de-autenticação)
+
+  **Resposta**
+  ```json
+    {
+      "post_id": "fc53f681-82b5-4089-b2c1-d12002b38ed3",
+      "user_id": "ee0c2b52-142e-4ee0-9369-41e4decc113e",
+      "content": "This is a comment!",
+      "id": "6422bdc6-c6b5-448a-9e77-e8ecd6e672df",
+      "created_at": "2020-05-28T18:28:48.706Z",
+      "updated_at": "2020-05-28T18:28:48.706Z"
+    }
+  ```
+  Status code: `200`
+
+  **Possíveis erros**
+  - Motivo
+    - [Erros de autenticação](#erros-de-autenticação)
+  - Motivo
+    - Erro de validação do Celebrate caso o ID informado não for do tipo UUIDv4.
+  - Motivo
+    - O post não foi encontrado
+
+  - Resposta desse erro:
+    - ```json
+        {
+          "status": "error",
+          "message": "Post not found"
+        }
+      ```
+    - Status code: `400`
+
+<br>
+
+  **Rota**
+  - PUT - `base_url/comments/:commentId`
+
+  **Descrição**
+
+  Essa rota realiza a edição de um comentário a partir do seu ID.
+
+  **Parâmetros**
+  - BODY
+    - ```json
+          {
+            "content": "Comment ALTERED"
+          }
+      ```
+  - PARAMS
+     -  ```
+        6422bdc6-c6b5-448a-9e77-e8ecd6e672df
+        ```
+  - HEADER
+    - [Parâmetros de autenticação](#parâmetros-de-autenticação)
+
+  **Resposta**
+  ```json
+    {
+      "id": "6422bdc6-c6b5-448a-9e77-e8ecd6e672df",
+      "post_id": "fc53f681-82b5-4089-b2c1-d12002b38ed3",
+      "user_id": "ee0c2b52-142e-4ee0-9369-41e4decc113e",
+      "content": "Comment ALTERED",
+      "created_at": "2020-05-28T18:28:48.706Z",
+      "updated_at": "2020-05-28T18:33:16.886Z"
+    }
+  ```
+  Status code: `200`
+
+  **Possíveis erros**
+  - Motivo
+    - [Erros de autenticação](#erros-de-autenticação)
+  - Motivo
+    - Erro de validação do Celebrate caso o ID informado não for do tipo UUIDv4.
+  - Motivo
+    - O comentário não foi encontrado
+
+  - Resposta desse erro:
+    - ```json
+        {
+          "status": "error",
+          "message": "Comment not found"
+        }
+      ```
+    - Status code: `400`
+
+<br>
+
+  **Rota**
+  - DELETE - `base_url/comments/:commentId`
+
+  **Descrição**
+
+  Essa rota realiza a remoção de um comentário do banco de dados a partir do seu ID.
+
+  **Parâmetros**
+  - PARAMS
+     -  ```
+        6422bdc6-c6b5-448a-9e77-e8ecd6e672df
+        ```
+  - HEADER
+    - [Parâmetros de autenticação](#parâmetros-de-autenticação)
+
+  **Resposta**
+
+  Status code: `204`
+
+  **Possíveis erros**
+  - Motivo
+    - [Erros de autenticação](#erros-de-autenticação)
+  - Motivo
+    - Erro de validação do Celebrate caso o ID informado não for do tipo UUIDv4.
+  - Motivo
+    - O comentário não foi encontrado
+
+  - Resposta desse erro:
+    - ```json
+        {
+          "status": "error",
+          "message": "Comment not found"
+        }
+      ```
+    - Status code: `400`
+
+<br>
+
+  **Rota**
+  - GET - `base_url/comments/:postId`
+
+  **Descrição**
+
+  Essa rota realiza a listagem de todos os comentários de um post a partir do ID de um post.
+
+  **Parâmetros**
+  - PARAMS
+     -  ```
+        fc53f681-82b5-4089-b2c1-d12002b38ed3
+        ```
+
+  **Resposta**
+
+  ```json
+    [
+      {
+        "id": "2d7a88e6-0a72-45f5-b2d6-8f8f08057dfb",
+        "post_id": "fc53f681-82b5-4089-b2c1-d12002b38ed3",
+        "user_id": "ee0c2b52-142e-4ee0-9369-41e4decc113e",
+        "content": "This is a comment!",
+        "created_at": "2020-05-28T18:39:57.899Z",
+        "updated_at": "2020-05-28T18:39:57.899Z"
+      }
+    ]
+  ```
+
+  Status code: `200`
+
+  **Possíveis erros**
+  - Motivo
+    - Erro de validação do Celebrate caso o ID informado não for do tipo UUIDv4.
+  - Motivo
+    - O post não foi encontrado
+
+  - Resposta desse erro:
+    - ```json
+        {
+          "status": "error",
+          "message": "Post not found"
+        }
+      ```
+    - Status code: `400`
+
+<br>
+
+  **Rota**
+  - GET - `base_url/comments/:postId/:commentId`
+
+  **Descrição**
+
+  Essa rota mostra um comentário específico de um post a partir do ID de um post e do ID de um comentário.
+
+  **Parâmetros**
+  - PARAMS
+     1. ```
+        fc53f681-82b5-4089-b2c1-d12002b38ed3
+        ```
+    2.  ```
+        2d7a88e6-0a72-45f5-b2d6-8f8f08057dfb
+        ```
+
+  **Resposta**
+
+  ```json
+    {
+      "id": "2d7a88e6-0a72-45f5-b2d6-8f8f08057dfb",
+      "post_id": "fc53f681-82b5-4089-b2c1-d12002b38ed3",
+      "user_id": "ee0c2b52-142e-4ee0-9369-41e4decc113e",
+      "content": "This is a comment!",
+      "created_at": "2020-05-28T18:39:57.899Z",
+      "updated_at": "2020-05-28T18:39:57.899Z"
+    }
+  ```
+
+  Status code: `200`
+
+  **Possíveis erros**
+  - Motivo
+    - Erro de validação do Celebrate caso os IDs informados não forem do tipo UUIDv4.
+
+  - Motivo
+    - O post não foi encontrado
+
+  - Resposta desse erro:
+    - ```json
+        {
+          "status": "error",
+          "message": "Post not found"
+        }
+      ```
+    - Status code: `400`
+
+  - Motivo
+    - O comentário não foi encontrado
+
+  - Resposta desse erro:
+    - ```json
+        {
+          "status": "error",
+          "message": "Comment not found"
+        }
+      ```
+    - Status code: `400`
+
+<br>
 
 Desenvolvido com ❤ por [Danilo Vieira](https://github.com/danilo-vieira/)
 
