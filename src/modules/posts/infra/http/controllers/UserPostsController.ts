@@ -6,7 +6,7 @@ import ShowOnePostFromUserService from '@modules/posts/services/ShowOnePostFromU
 import UpdatePostService from '@modules/posts/services/UpdatePostService';
 import DeletePostService from '@modules/posts/services/DeletePostService';
 
-export default class PostsController {
+export default class UserPostsController {
   public async index(request: Request, response: Response): Promise<Response> {
     const { userId } = request.params;
 
@@ -48,12 +48,12 @@ export default class PostsController {
 
   public async delete(request: Request, response: Response): Promise<Response> {
     const user_id = request.user.id;
-    const { id } = request.params;
+    const { postId } = request.params;
 
     const deletePost = container.resolve(DeletePostService);
 
     await deletePost.execute({
-      post_id: id,
+      post_id: postId,
       user_id,
     });
 
