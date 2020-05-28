@@ -22,11 +22,11 @@ postsRouter.get(
   userPostsController.index
 );
 postsRouter.get(
-  '/:userId/:postId',
+  '/:postId/:userId',
   celebrate({
     [Segments.PARAMS]: {
-      userId: Joi.string().uuid({ version: 'uuidv4' }).required(),
       postId: Joi.string().uuid({ version: 'uuidv4' }).required(),
+      userId: Joi.string().uuid({ version: 'uuidv4' }).required(),
     },
   }),
   userPostsController.show

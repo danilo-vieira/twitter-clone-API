@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
+import { classToClass } from 'class-transformer';
 
 import ShowAllPostsFromUserService from '@modules/posts/services/ShowAllPostsFromUserService';
 import ShowOnePostFromUserService from '@modules/posts/services/ShowOnePostFromUserService';
@@ -14,7 +15,7 @@ export default class UserPostsController {
 
     const posts = await showAllPostsFromUser.execute(userId);
 
-    return response.json(posts);
+    return response.json(classToClass(posts));
   }
 
   public async show(request: Request, response: Response): Promise<Response> {
@@ -27,7 +28,7 @@ export default class UserPostsController {
       user_id: userId,
     });
 
-    return response.json(post);
+    return response.json(classToClass(post));
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
@@ -43,7 +44,7 @@ export default class UserPostsController {
       content,
     });
 
-    return response.json(updatedpost);
+    return response.json(classToClass(updatedpost));
   }
 
   public async delete(request: Request, response: Response): Promise<Response> {

@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
+import { classToClass } from 'class-transformer';
 
 import ShowAllPostsService from '@modules/posts/services/ShowAllPostsService';
 import CreatePostService from '@modules/posts/services/CreatePostService';
@@ -10,7 +11,7 @@ export default class PostsController {
 
     const posts = await showAllPosts.execute();
 
-    return response.json(posts);
+    return response.json(classToClass(posts));
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
