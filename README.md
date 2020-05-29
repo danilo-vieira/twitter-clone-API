@@ -877,7 +877,11 @@ ATENÇÃO: Os seguintes passos são para configurações em ambiente **Linux**. 
 
   **Descrição**
 
-  Essa rota realiza a remoção de um comentário do banco de dados a partir do seu ID.
+  Essa rota realiza a remoção de um comentário do banco de dados a partir do seu ID. Aqui há uma regra de negócio mais específica que é o seguinte:
+
+  O dono de uma publicação pode apagar qualquer comentário dessa publicação mesmo que não tenha sido escrito por ele.
+
+  Já o autor de um comentário em uma publicação que não é dele, pode apagar somente o seu comentário.
 
   **Parâmetros**
   - PARAMS
@@ -894,8 +898,10 @@ ATENÇÃO: Os seguintes passos são para configurações em ambiente **Linux**. 
   **Possíveis erros**
   - Motivo
     - [Erros de autenticação](#erros-de-autenticação)
+
   - Motivo
     - Erro de validação do Celebrate caso o ID informado não for do tipo UUIDv4.
+
   - Motivo
     - O comentário não foi encontrado
 
@@ -908,6 +914,17 @@ ATENÇÃO: Os seguintes passos são para configurações em ambiente **Linux**. 
       ```
     - Status code: `400`
 
+  - Motivo
+    - O comentário não pode ser apagado por alguém que não é o autor do comentário ou da publicação ao qual esse comentário pertence.
+
+  - Resposta desse erro:
+    - ```json
+        {
+          "status": "error",
+          "message": "Unable to delete this comment"
+        }
+      ```
+    - Status code: `400`
 <br>
 
   **Rota**
