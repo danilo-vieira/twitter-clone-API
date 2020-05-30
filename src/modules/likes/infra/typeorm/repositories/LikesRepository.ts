@@ -1,4 +1,4 @@
-import { Repository, getRepository, DeleteResult } from 'typeorm';
+import { Repository, getRepository } from 'typeorm';
 
 import ILikesRepository from '@modules/likes/repositories/ILikesRepository';
 
