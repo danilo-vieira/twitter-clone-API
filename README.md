@@ -63,11 +63,11 @@ ATENÇÃO: Os seguintes passos são para configurações em ambiente **Linux**. 
 
   No mesmo terminal, digite:
   ```bash
-    nvm install v12.16.3
+    nvm install v12.17.0
   ```
   E depois:
   ```bash
-    nvm use v12.17.3
+    nvm use v12.17.0
   ```
   Esses comandos vão fazer seu computador baixar o Node.js na sua útima versão LTS (que é a atual versão LTS, mas você pode checar por mudanças no [site oficial do NodeJS](https://nodejs.org/en/)) e usar ela.
 
