@@ -17,7 +17,7 @@ describe('UpdateProfile', () => {
     updateProfile = new UpdateProfileService(fakeUsersRepository, hashProvider);
   });
 
-  it('should be able to update user profile', async () => {
+  it('should be able to update user profile with new password', async () => {
     const user = await fakeUsersRepository.create({
       name: 'John Doe',
       email: 'johndoe@example.com',
@@ -35,7 +35,7 @@ describe('UpdateProfile', () => {
     expect(updatedUser.password).toBe('new-pass');
   });
 
-  it('should not be able to update user profile containing old password without new password', async () => {
+  it('should be able to update user profile without new password', async () => {
     const user = await fakeUsersRepository.create({
       name: 'John Doe',
       email: 'johndoe@example.com',
@@ -44,12 +44,28 @@ describe('UpdateProfile', () => {
 
     const updatedUser = await updateProfile.execute({
       user_id: user.id,
-      name: 'John Doe',
+      name: 'John',
       email: 'johndoe@example.com',
-      old_password: 'pass-test',
     });
 
-    expect(updatedUser.password).toBe('pass-test');
+    expect(updatedUser.name).toBe('John');
+  });
+
+  it('should not be able to update user profile containing old password without new password', async () => {
+    const user = await fakeUsersRepository.create({
+      name: 'John Doe',
+      email: 'johndoe@example.com',
+      password: 'pass-test',
+    });
+
+    expect(
+      updateProfile.execute({
+        user_id: user.id,
+        name: 'John Doe',
+        email: 'johndoe@example.com',
+        old_password: 'pass-test',
+      })
+    ).rejects.toBeInstanceOf(AppError);
   });
 
   it('should not be able to update a non existing user profile', async () => {

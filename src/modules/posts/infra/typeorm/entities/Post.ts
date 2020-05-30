@@ -29,10 +29,13 @@ export default class Post {
 
   @OneToMany(() => Comment, comment => comment.post, { eager: true })
   @JoinColumn({ name: 'comment_id' })
-  comment: Comment;
+  comments: Comment[];
 
   @Column()
   content: string;
+
+  @Column('integer')
+  likes: number;
 
   @CreateDateColumn()
   created_at: Date;

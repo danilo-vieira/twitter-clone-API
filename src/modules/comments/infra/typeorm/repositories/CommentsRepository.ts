@@ -33,6 +33,7 @@ export default class CommentsRepository implements ICommentsRepository {
       user_id,
       post_id,
       content,
+      likes: 0,
     });
 
     const createdComment = await this.ormRepository.save(comment);

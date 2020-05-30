@@ -29,6 +29,9 @@ export default class Comment {
   @JoinColumn({ name: 'user_id' })
   user: User;
 
+  @Column('integer')
+  likes: number;
+
   @Column()
   content: string;
 

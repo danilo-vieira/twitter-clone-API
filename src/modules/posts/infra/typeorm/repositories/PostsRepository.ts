@@ -38,6 +38,8 @@ export default class PostsRepository implements IPostsRepository {
     const post = this.ormRepository.create({
       user_id,
       content,
+      likes: 0,
+      comments: [],
     });
 
     const createdPost = await this.ormRepository.save(post);

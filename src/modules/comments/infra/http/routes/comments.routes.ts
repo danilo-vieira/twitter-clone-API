@@ -3,9 +3,11 @@ import { celebrate, Segments, Joi } from 'celebrate';
 
 import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
 import CommentsController from '../controllers/CommentsController';
+import CommentsLikeController from '../controllers/CommentsLikeController';
 
 const commentsRouter = Router();
 const commentsController = new CommentsController();
+const commentsLikeController = new CommentsLikeController();
 
 commentsRouter.get(
   '/:postId',
@@ -16,6 +18,7 @@ commentsRouter.get(
   }),
   commentsController.index
 );
+
 commentsRouter.get(
   '/:postId/:commentId',
   celebrate({
@@ -41,6 +44,7 @@ commentsRouter.post(
   }),
   commentsController.create
 );
+
 commentsRouter.put(
   '/:commentId',
   celebrate({
@@ -53,6 +57,17 @@ commentsRouter.put(
   }),
   commentsController.update
 );
+
+commentsRouter.patch(
+  '/likes/:commentId',
+  celebrate({
+    [Segments.PARAMS]: {
+      commentId: Joi.string().uuid({ version: 'uuidv4' }),
+    },
+  }),
+  commentsLikeController.update
+);
+
 commentsRouter.delete(
   '/:commentId',
   celebrate({

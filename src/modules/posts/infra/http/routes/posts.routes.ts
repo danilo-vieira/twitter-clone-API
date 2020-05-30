@@ -5,10 +5,12 @@ import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAut
 
 import PostsController from '../controllers/PostsController';
 import UserPostsController from '../controllers/UserPostsController';
+import PostLikesController from '../controllers/PostLikesController';
 
 const postsRouter = Router();
 const postsController = new PostsController();
 const userPostsController = new UserPostsController();
+const postLikesController = new PostLikesController();
 
 postsRouter.get('/', postsController.index);
 
@@ -43,6 +45,7 @@ postsRouter.post(
   }),
   postsController.create
 );
+
 postsRouter.put(
   '/:postId',
   celebrate({
@@ -55,6 +58,17 @@ postsRouter.put(
   }),
   userPostsController.update
 );
+
+postsRouter.patch(
+  '/likes/:postId',
+  celebrate({
+    [Segments.PARAMS]: {
+      postId: Joi.string().uuid({ version: 'uuidv4' }),
+    },
+  }),
+  postLikesController.update
+);
+
 postsRouter.delete(
   '/:postId',
   celebrate({

@@ -40,6 +40,7 @@ export default class FakeCommentsRepository implements ICommentsRepository {
       user_id,
       post_id,
       content,
+      likes: 0,
     });
 
     this.comments.push(newComment);

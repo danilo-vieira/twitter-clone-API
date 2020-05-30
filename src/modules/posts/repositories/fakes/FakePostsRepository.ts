@@ -26,7 +26,7 @@ export default class FakePostsRepository implements IPostsRepository {
   public async create({ user_id, content }: ICreatePostDTO): Promise<Post> {
     const newPost = new Post();
 
-    Object.assign(newPost, { id: uuid(), user_id, content });
+    Object.assign(newPost, { id: uuid(), user_id, content, likes: 0 });
 
     this.posts.push(newPost);
 
