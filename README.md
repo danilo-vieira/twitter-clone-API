@@ -175,7 +175,7 @@ ATENÇÃO: Os seguintes passos são para configurações em ambiente **Linux**. 
 
 ### 💻 **Referência da API**
 
-  Nessa API, temos três principais entidades que serão descritas por ordem e tipo de rota (GET, POST, PUT ou DELETE):
+  Nessa API, temos três principais entidades que serão descritas por ordem e tipo de rota (GET, POST, PUT, PATCH ou DELETE):
 
   - Rotas para usuários;
   - Rotas para posts;
