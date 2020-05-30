@@ -482,6 +482,8 @@ ATENÇÃO: Os seguintes passos são para configurações em ambiente **Linux**. 
       "id": "756db6fc-2635-49fd-9888-965eebf807d2",
       "user_id": "ee0c2b52-142e-4ee0-9369-41e4decc113e",
       "content": "Hello World!",
+      "likes": 0,
+      "comments": [],
       "created_at": "2020-05-28T17:44:57.250Z",
       "updated_at": "2020-05-28T17:44:57.250Z"
     }
@@ -493,6 +495,7 @@ ATENÇÃO: Os seguintes passos são para configurações em ambiente **Linux**. 
     - [Erros de autenticação](#erros-de-autenticação)
   - Motivo
     - Erros de validação do Celebrate caso o conteúdo do corpo não exista, possua menos que 1 caractere ou possua mais que 280 caracteres
+
 <br>
 
   **Rota**
@@ -519,20 +522,21 @@ ATENÇÃO: Os seguintes passos são para configurações em ambiente **Linux**. 
   **Resposta**
   ```json
     {
-      "id": "756db6fc-2635-49fd-9888-965eebf807d2",
-      "user_id": "ee0c2b52-142e-4ee0-9369-41e4decc113e",
+      "id": "e686c337-9974-4242-9430-17fc958abffb",
+      "user_id": "322dac61-b42d-4e0c-abb0-7dfbda6fd40c",
       "comment_id": null,
       "content": "Post Changed!",
-      "created_at": "2020-05-28T17:44:57.250Z",
-      "updated_at": "2020-05-28T17:53:10.561Z",
+      "likes": 0,
+      "created_at": "2020-05-30T11:50:12.661Z",
+      "updated_at": "2020-05-30T11:52:16.794Z",
       "user": {
-        "id": "ee0c2b52-142e-4ee0-9369-41e4decc113e",
-        "name": "John",
+        "id": "322dac61-b42d-4e0c-abb0-7dfbda6fd40c",
+        "name": "John Doe",
         "email": "johndoe@example.com",
-        "created_at": "2020-05-28T16:51:20.606Z",
-        "updated_at": "2020-05-28T16:54:45.734Z"
+        "created_at": "2020-05-30T11:50:02.728Z",
+        "updated_at": "2020-05-30T11:50:02.728Z"
       },
-      "comment": []
+      "comments": []
     }
   ```
   Status code: `200`
@@ -554,6 +558,72 @@ ATENÇÃO: Os seguintes passos são para configurações em ambiente **Linux**. 
           "message": "Post not found"
         }
       ```
+    - Status code: `400`
+
+<br>
+
+  **Rota**
+  - PATCH - `base_url/posts/likes/:postId`
+
+  **Descrição**
+
+  Essa rota permite dar like em um post.
+  Atenção: Apenas é permitido um like por usuário. Caso um usuário que já tenha dado like realize uma requisição à essa mesma rota, a ação será de deslike.
+
+  **Parâmetros**
+  - HEADER
+    - [Parâmetros de autenticação](#parâmetros-de-autenticação)
+  - PARAMS
+    - ```
+        e686c337-9974-4242-9430-17fc958abffb
+      ```
+  **Resposta**
+  ```json
+    {
+      "id": "e686c337-9974-4242-9430-17fc958abffb",
+      "user_id": "322dac61-b42d-4e0c-abb0-7dfbda6fd40c",
+      "comment_id": null,
+      "content": "Post Changed!",
+      "likes": 1,
+      "created_at": "2020-05-30T11:50:12.661Z",
+      "updated_at": "2020-05-30T11:52:16.794Z",
+      "user": {
+        "id": "322dac61-b42d-4e0c-abb0-7dfbda6fd40c",
+        "name": "John Doe",
+        "email": "johndoe@example.com",
+        "created_at": "2020-05-30T11:50:02.728Z",
+        "updated_at": "2020-05-30T11:50:02.728Z"
+      },
+      "comments": []
+    }
+  ```
+  Status code: `200`
+
+  **Possíveis erros**
+  - Motivo
+    - [Erros de autenticação](#erros-de-autenticação)
+  - Motivo
+    - Erros de validação do Celebrate caso o ID passado no parâmetro não seja do tipo UUIDv4.
+  - Motivo
+    - Usuário não encontrado
+  - Resposta desse erro:
+    ```json
+      {
+        "status": "error",
+        "message": "User not found.",
+      }
+    ```
+    - Status code: `400`
+
+  - Motivo
+    - Post não encontrado
+  - Resposta desse erro:
+    ```json
+      {
+        "status": "error",
+        "message": "Post not found.",
+      }
+    ```
     - Status code: `400`
 
 <br>
@@ -603,7 +673,7 @@ ATENÇÃO: Os seguintes passos são para configurações em ambiente **Linux**. 
 
   **Descrição**
 
-  Essa rota realiza a listagem de todos os posts de todos os usuários ordenados por data do mais recente para o mais antigo.
+  Essa rota realiza a listagem de todos os posts de todos os usuários ordenados por data do mais recente para o mais antigo (timeline).
 
   **Parâmetros**
 
@@ -613,20 +683,21 @@ ATENÇÃO: Os seguintes passos são para configurações em ambiente **Linux**. 
   ```json
     [
       {
-        "id": "756db6fc-2635-49fd-9888-965eebf807d2",
-        "user_id": "ee0c2b52-142e-4ee0-9369-41e4decc113e",
+        "id": "e686c337-9974-4242-9430-17fc958abffb",
+        "user_id": "322dac61-b42d-4e0c-abb0-7dfbda6fd40c",
         "comment_id": null,
         "content": "Post Changed!",
-        "created_at": "2020-05-28T17:44:57.250Z",
-        "updated_at": "2020-05-28T17:53:10.561Z",
+        "likes": 1,
+        "created_at": "2020-05-30T11:50:12.661Z",
+        "updated_at": "2020-05-30T11:52:16.794Z",
         "user": {
-          "id": "ee0c2b52-142e-4ee0-9369-41e4decc113e",
-          "name": "John",
+          "id": "322dac61-b42d-4e0c-abb0-7dfbda6fd40c",
+          "name": "John Doe",
           "email": "johndoe@example.com",
-          "created_at": "2020-05-28T16:51:20.606Z",
-          "updated_at": "2020-05-28T16:54:45.734Z"
+          "created_at": "2020-05-30T11:50:02.728Z",
+          "updated_at": "2020-05-30T11:50:02.728Z"
         },
-        "comment": []
+        "comments": []
       }
     ]
   ```
@@ -654,20 +725,21 @@ ATENÇÃO: Os seguintes passos são para configurações em ambiente **Linux**. 
   ```json
     [
       {
-        "id": "756db6fc-2635-49fd-9888-965eebf807d2",
-        "user_id": "ee0c2b52-142e-4ee0-9369-41e4decc113e",
+        "id": "e686c337-9974-4242-9430-17fc958abffb",
+        "user_id": "322dac61-b42d-4e0c-abb0-7dfbda6fd40c",
         "comment_id": null,
         "content": "Post Changed!",
-        "created_at": "2020-05-28T17:44:57.250Z",
-        "updated_at": "2020-05-28T17:53:10.561Z",
+        "likes": 1,
+        "created_at": "2020-05-30T11:50:12.661Z",
+        "updated_at": "2020-05-30T11:52:16.794Z",
         "user": {
-          "id": "ee0c2b52-142e-4ee0-9369-41e4decc113e",
-          "name": "John",
+          "id": "322dac61-b42d-4e0c-abb0-7dfbda6fd40c",
+          "name": "John Doe",
           "email": "johndoe@example.com",
-          "created_at": "2020-05-28T16:51:20.606Z",
-          "updated_at": "2020-05-28T16:54:45.734Z"
+          "created_at": "2020-05-30T11:50:02.728Z",
+          "updated_at": "2020-05-30T11:50:02.728Z"
         },
-        "comment": []
+        "comments": []
       }
     ]
   ```
@@ -716,7 +788,7 @@ ATENÇÃO: Os seguintes passos são para configurações em ambiente **Linux**. 
       "id": "fc53f681-82b5-4089-b2c1-d12002b38ed3",
       "user_id": "ee0c2b52-142e-4ee0-9369-41e4decc113e",
       "comment_id": null,
-      "content": "Hello World",
+      "content": "Post Changed!",
       "created_at": "2020-05-28T18:16:53.420Z",
       "updated_at": "2020-05-28T18:16:53.420Z",
       "user": {
@@ -792,6 +864,7 @@ ATENÇÃO: Os seguintes passos são para configurações em ambiente **Linux**. 
     {
       "post_id": "fc53f681-82b5-4089-b2c1-d12002b38ed3",
       "user_id": "ee0c2b52-142e-4ee0-9369-41e4decc113e",
+      "likes": 0,
       "content": "This is a comment!",
       "id": "6422bdc6-c6b5-448a-9e77-e8ecd6e672df",
       "created_at": "2020-05-28T18:28:48.706Z",
@@ -846,6 +919,7 @@ ATENÇÃO: Os seguintes passos são para configurações em ambiente **Linux**. 
       "id": "6422bdc6-c6b5-448a-9e77-e8ecd6e672df",
       "post_id": "fc53f681-82b5-4089-b2c1-d12002b38ed3",
       "user_id": "ee0c2b52-142e-4ee0-9369-41e4decc113e",
+      "likes": 0,
       "content": "Comment ALTERED",
       "created_at": "2020-05-28T18:28:48.706Z",
       "updated_at": "2020-05-28T18:33:16.886Z"
@@ -868,6 +942,64 @@ ATENÇÃO: Os seguintes passos são para configurações em ambiente **Linux**. 
           "message": "Comment not found"
         }
       ```
+    - Status code: `400`
+
+<br>
+
+  **Rota**
+  - PATCH - `base_url/comments/likes/:commentId`
+
+  **Descrição**
+
+  Essa rota permite dar like em um comentário.
+  Atenção: Apenas é permitido um like por usuário. Caso um usuário que já tenha dado like realize uma requisição à essa mesma rota, a ação será de deslike.
+
+  **Parâmetros**
+  - HEADER
+    - [Parâmetros de autenticação](#parâmetros-de-autenticação)
+  - PARAMS
+    - ```
+        6422bdc6-c6b5-448a-9e77-e8ecd6e672df
+      ```
+  **Resposta**
+  ```json
+    {
+      "id": "6422bdc6-c6b5-448a-9e77-e8ecd6e672df",
+      "post_id": "e686c337-9974-4242-9430-17fc958abffb",
+      "user_id": "322dac61-b42d-4e0c-abb0-7dfbda6fd40c",
+      "likes": 1,
+      "content": "Comment ALTERED",
+      "created_at": "2020-05-30T11:51:13.587Z",
+      "updated_at": "2020-05-30T11:52:41.408Z"
+    }
+  ```
+  Status code: `200`
+
+  **Possíveis erros**
+  - Motivo
+    - [Erros de autenticação](#erros-de-autenticação)
+  - Motivo
+    - Erros de validação do Celebrate caso o ID passado no parâmetro não seja do tipo UUIDv4.
+  - Motivo
+    - Usuário não encontrado
+  - Resposta desse erro:
+    ```json
+      {
+        "status": "error",
+        "message": "User not found.",
+      }
+    ```
+    - Status code: `400`
+
+  - Motivo
+    - Comentário não encontrado
+  - Resposta desse erro:
+    ```json
+      {
+        "status": "error",
+        "message": "Comment not found.",
+      }
+    ```
     - Status code: `400`
 
 <br>
@@ -945,10 +1077,10 @@ ATENÇÃO: Os seguintes passos são para configurações em ambiente **Linux**. 
   ```json
     [
       {
-        "id": "2d7a88e6-0a72-45f5-b2d6-8f8f08057dfb",
+        "id": "6422bdc6-c6b5-448a-9e77-e8ecd6e672df",
         "post_id": "fc53f681-82b5-4089-b2c1-d12002b38ed3",
         "user_id": "ee0c2b52-142e-4ee0-9369-41e4decc113e",
-        "content": "This is a comment!",
+        "content": "Comment ALTERED",
         "created_at": "2020-05-28T18:39:57.899Z",
         "updated_at": "2020-05-28T18:39:57.899Z"
       }
@@ -987,20 +1119,20 @@ ATENÇÃO: Os seguintes passos são para configurações em ambiente **Linux**. 
         fc53f681-82b5-4089-b2c1-d12002b38ed3
         ```
     2.  ```
-        2d7a88e6-0a72-45f5-b2d6-8f8f08057dfb
+        6422bdc6-c6b5-448a-9e77-e8ecd6e672df
         ```
 
   **Resposta**
 
   ```json
     {
-      "id": "2d7a88e6-0a72-45f5-b2d6-8f8f08057dfb",
-      "post_id": "fc53f681-82b5-4089-b2c1-d12002b38ed3",
-      "user_id": "ee0c2b52-142e-4ee0-9369-41e4decc113e",
-      "content": "This is a comment!",
-      "created_at": "2020-05-28T18:39:57.899Z",
-      "updated_at": "2020-05-28T18:39:57.899Z"
-    }
+        "id": "6422bdc6-c6b5-448a-9e77-e8ecd6e672df",
+        "post_id": "fc53f681-82b5-4089-b2c1-d12002b38ed3",
+        "user_id": "ee0c2b52-142e-4ee0-9369-41e4decc113e",
+        "content": "Comment ALTERED",
+        "created_at": "2020-05-28T18:39:57.899Z",
+        "updated_at": "2020-05-28T18:39:57.899Z"
+      }
   ```
 
   Status code: `200`
